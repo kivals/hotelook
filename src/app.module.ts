@@ -20,6 +20,7 @@ import { UserModule } from './modules/user/user.module';
         CRYPTO_LENGTH: Joi.number().default(128),
         CRYPTO_DIGEST: Joi.string().default('sha512'),
       }),
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -34,6 +35,7 @@ import { UserModule } from './modules/user/user.module';
     }),
     HotelModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
