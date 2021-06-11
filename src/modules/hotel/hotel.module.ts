@@ -4,6 +4,7 @@ import { Hotel, HotelSchema } from './entity/hotel.entity';
 import { HotelController } from './hotel.controller';
 import { HotelService } from './hotel.service';
 import { HotelRoomService } from './HotelRoomService';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [

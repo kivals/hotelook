@@ -5,6 +5,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HotelModule } from './modules/hotel/hotel.module';
 import * as Joi from 'joi';
 import { MongooseModule, MongooseModuleAsyncOptions } from '@nestjs/mongoose';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -13,6 +15,10 @@ import { MongooseModule, MongooseModuleAsyncOptions } from '@nestjs/mongoose';
         APP_ENV: Joi.string().valid('dev', 'prod').default('dev'),
         APP_PORT: Joi.number().positive().default(3000),
         DB_URL: Joi.string(),
+        CRYPTO_SALT: Joi.string().min(6).max(128),
+        CRYPTO_ITERATIONS: Joi.number().min(1),
+        CRYPTO_LENGTH: Joi.number().default(128),
+        CRYPTO_DIGEST: Joi.string().default('sha512'),
       }),
     }),
     MongooseModule.forRootAsync({
@@ -27,6 +33,7 @@ import { MongooseModule, MongooseModuleAsyncOptions } from '@nestjs/mongoose';
       },
     }),
     HotelModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
