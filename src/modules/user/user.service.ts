@@ -17,8 +17,9 @@ export class UserService implements IUserService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  create(user: regUser): Promise<User> {
-    const exitedUser = this.findByEmail(user.email);
+  async create(user: regUser): Promise<User> {
+    const exitedUser = await this.findByEmail(user.email);
+    console.log(exitedUser);
     if (exitedUser) {
       throw new NotAcceptableException(
         'The account with the provided username currently exists. Please choose another one.',

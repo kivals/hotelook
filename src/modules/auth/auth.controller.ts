@@ -28,7 +28,9 @@ export class AuthController {
   @Post('register')
   async register(@Body() registerUserDto: RegisterUserDto) {
     console.log('Reg controller');
-    const passwordHash = this.authService.generateHashPassword(registerUserDto.password);
+    const passwordHash = this.authService.generateHashPassword(
+      registerUserDto.password,
+    );
     return await this.userService.create({
       ...registerUserDto,
       passwordHash,

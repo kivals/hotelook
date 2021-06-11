@@ -25,6 +25,6 @@ export class RegisterUserDto {
    * Password field
    */
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(6)
   password: string;
 }
