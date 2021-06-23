@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { HotelService } from './hotel.service';
 import { HotelRoomService } from './HotelRoomService';
+import { AuthenticatedGuard } from '../../common/guards/authenticated.guard';
 
 /**
  * Hotel controller
@@ -17,6 +18,7 @@ export class HotelController {
    * Retrieves all cats
    * @return {Promise<Hotel[]> queried hotels}
    */
+  @UseGuards(AuthenticatedGuard)
   @Get()
   getHotels() {
     return [];

@@ -19,7 +19,6 @@ export class UserService implements IUserService {
 
   async create(user: regUser): Promise<User> {
     const exitedUser = await this.findByEmail(user.email);
-    console.log(exitedUser);
     if (exitedUser) {
       throw new NotAcceptableException(
         'The account with the provided username currently exists. Please choose another one.',
