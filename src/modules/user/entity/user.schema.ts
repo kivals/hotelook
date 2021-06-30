@@ -42,7 +42,7 @@ export class User {
     type: String,
     minlength: 3,
     maxlength: 32,
-    default: 'user',
+    default: Role.Client,
   })
   role: Role;
 }

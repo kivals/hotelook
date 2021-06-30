@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, Matches, MinLength } from 'class-validator';
+import { Role } from '../../../common/enums/role.enum';
 
 export class CreateUserDto {
   /**
@@ -17,7 +18,7 @@ export class CreateUserDto {
   /**
    * Name field
    */
-  @Matches(/^[a-zA-Z ]+$/)
+  @Matches(/^[a-zA-ZА-Яа-я ]+$/)
   @IsNotEmpty()
   name: string;
 
@@ -32,6 +33,6 @@ export class CreateUserDto {
    * Password field
    */
   @IsNotEmpty()
-  @MinLength(4)
-  role: string;
+  @IsEnum(Role)
+  role: Role;
 }

@@ -1,8 +1,9 @@
-import * as crypto from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { ConfigService } from '@nestjs/config';
 import { RegisterUserDto } from '../user/dto/RegisterUserDto';
+import { generateHashPassword } from '../../common/utils/authUtils';
+import { UserDocument } from '../user/entity/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -11,12 +12,10 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  public async register(registerUserDto: RegisterUserDto) {
-    const passwordHash = this.generateHashPassword(registerUserDto.password);
-    return this.userService.create({
-      ...registerUserDto,
-      passwordHash,
-    });
+  public async register(
+    registerUserDto: RegisterUserDto,
+  ): Promise<UserDocument> {
+    return this.userService.create(registerUserDto);
   }
 
   public async validateUser(email: string, password: string): Promise<any> {
@@ -29,17 +28,15 @@ export class AuthService {
 
   private checkPassword(existPassword: string, userPassword): boolean {
     if (!userPassword) return false;
-    const passwordHash = this.generateHashPassword(userPassword);
+    const passwordHash = generateHashPassword(
+      {
+        salt: this.configService.get('CRYPTO_SALT'),
+        iterations: this.configService.get('CRYPTO_ITERATIONS'),
+        length: this.configService.get('CRYPTO_LENGTH'),
+        digest: this.configService.get('CRYPTO_DIGEST'),
+      },
+      userPassword,
+    );
     return existPassword === passwordHash;
-  }
-
-  private generateHashPassword(password: string): string {
-    const salt = this.configService.get('CRYPTO_SALT');
-    const iterations = this.configService.get('CRYPTO_ITERATIONS');
-    const length = this.configService.get('CRYPTO_LENGTH');
-    const digest = this.configService.get('CRYPTO_DIGEST');
-    return crypto
-      .pbkdf2Sync(password, salt, iterations, length, digest)
-      .toString('hex');
   }
 }

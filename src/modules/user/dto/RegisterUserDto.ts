@@ -17,7 +17,7 @@ export class RegisterUserDto {
   /**
    * Name field
    */
-  @Matches(/^[a-zA-Z ]+$/)
+  @Matches(/^[a-zA-ZА-Яа-я ]+$/)
   @IsNotEmpty()
   name: string;
 
