@@ -6,6 +6,7 @@ import { HotelService } from './hotel.service';
 import { HotelRoomService } from './HotelRoomService';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '../auth/auth.module';
+import { AdminHotelController } from './controllers/admin-hotel.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AuthModule } from '../auth/auth.module';
       },
     ]),
   ],
-  controllers: [HotelController],
+  controllers: [HotelController, AdminHotelController],
   providers: [HotelService, HotelRoomService],
 })
 export class HotelModule {}

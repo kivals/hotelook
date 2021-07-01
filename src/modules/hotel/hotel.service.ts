@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IHotelService } from './interfaces/IHotelService';
 import { ID } from '../../common/types';
+import { CreateHotelDto } from './dto/CreateHotelDto';
 
 /**
  * Hotel service
@@ -15,8 +16,8 @@ export class HotelService implements IHotelService {
     @InjectModel(Hotel.name) private readonly hotelModel: Model<HotelDocument>,
   ) {}
 
-  create(data: any): Promise<Hotel> {
-    return Promise.resolve(undefined);
+  create(hotelData: CreateHotelDto): Promise<HotelDocument> {
+    return this.hotelModel.create(hotelData);
   }
 
   findById(id: ID): Promise<Hotel> {
