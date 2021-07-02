@@ -31,7 +31,7 @@ interface IHotelResponse {
  * TODO
  */
 @UseGuards(RolesGuard)
-@Controller('api/admin/')
+@Controller('api/admin/hotels')
 export class HotelController {
   constructor(
     private readonly hotelService: HotelService,
@@ -43,7 +43,7 @@ export class HotelController {
    * @return {Promise<Hotel[]> queried hotels}
    */
   //@UseGuards(AuthenticatedGuard)
-  @Get('hotels')
+  @Get()
   async getHotels(
     @Query() searchHotelDto: SearchUserDto,
   ): Promise<IHotelResponse[]> {
@@ -59,7 +59,7 @@ export class HotelController {
     });
   }
 
-  @Post('hotels')
+  @Post()
   @Roles(Role.Admin)
   async createHotel(@Body() createHotelDto: HotelDto): Promise<IHotelResponse> {
     const createdUser = await this.hotelService.create(createHotelDto);
@@ -70,7 +70,7 @@ export class HotelController {
     };
   }
 
-  @Put('hotels/:id')
+  @Put(':id')
   async updateHotel(
     @Param('id') id,
     @Body() data: HotelDto,

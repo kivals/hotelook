@@ -19,6 +19,7 @@ export class HotelService implements IHotelService {
     @InjectModel(Hotel.name) private readonly hotelModel: Model<HotelDocument>,
   ) {}
 
+  //TODO interfaces or types?
   create(hotelData: HotelDto): Promise<HotelDocument> {
     return this.hotelModel.create(hotelData);
   }

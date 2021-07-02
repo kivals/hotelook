@@ -20,6 +20,13 @@ import { UserModule } from './modules/user/user.module';
         CRYPTO_LENGTH: Joi.number().default(128),
         CRYPTO_DIGEST: Joi.string().default('sha512'),
         SESSION_SECRET: Joi.string().required(),
+        UPLOAD_DEST: Joi.string().default('./uploads'),
+        MAX_IMG_FILE_SIZE: Joi
+          .number()
+          .positive()
+          .min(1024)
+          .default(1024 * 1024),
+        MAX_COUNT_FILES: Joi.number().positive().min(1).default(10),
       }),
       isGlobal: true,
     }),
