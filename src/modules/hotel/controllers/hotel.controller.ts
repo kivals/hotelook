@@ -32,7 +32,7 @@ interface IHotelResponse {
  */
 @UseGuards(RolesGuard)
 @Controller('api/admin/')
-export class AdminHotelController {
+export class HotelController {
   constructor(
     private readonly hotelService: HotelService,
     private readonly hotelRoomService: HotelRoomService,
