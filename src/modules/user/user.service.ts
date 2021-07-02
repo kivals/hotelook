@@ -34,6 +34,9 @@ export class UserService implements IUserService {
   }
 
   async findAll(params: ISearchUserParams): Promise<User[]> {
+    console.log(params);
+    //TODO надо подумать, нужно ли тут проверять на emoty
+    //если он будет пуст то поиск норм отработает и без этой проверки
     if (isEmptyObject(params)) {
       return this.userModel.find().exec();
     }

@@ -36,7 +36,7 @@ export class AdminController {
   }
 
   @Get('users')
-  @Roles(Role.Admin)
+  //@Roles(Role.Admin)
   async getUsers(@Query() searchUserDto: SearchUserDto) {
     return this.userService.findAll(searchUserDto);
   }

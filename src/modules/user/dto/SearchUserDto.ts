@@ -1,9 +1,15 @@
 import { ISearchUserParams } from '../interfaces/ISearchUserParams';
-import { IsEmail, IsNumber, IsOptional, Matches, Max, Min } from 'class-validator';
+import {
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  Matches,
+  Max,
+  Min,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class SearchUserDto implements ISearchUserParams {
-
   @IsOptional()
   contactPhone?: string;
 

@@ -2,7 +2,7 @@ import { IHotelRoomService } from './interfaces/IHotelRoomService';
 import { Injectable } from '@nestjs/common';
 import { HotelRoom } from './entity/hotel-room.entity';
 import { ID } from '../../common/types';
-import { SearchRoomsParams } from './interfaces/SearchRoomsParams';
+import { ISearchRoomsParams } from './interfaces/ISearchRoomsParams';
 
 /**
  * HotelRoom service
@@ -18,7 +18,7 @@ export class HotelRoomService implements IHotelRoomService {
     return Promise.resolve(undefined);
   }
 
-  search(params: SearchRoomsParams): Promise<HotelRoom[]> {
+  search(params: ISearchRoomsParams): Promise<HotelRoom[]> {
     return Promise.resolve([]);
   }
 

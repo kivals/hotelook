@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Hotel } from './hotel.entity';
 
-@Schema()
+@Schema({ timestamps: true })
 export class HotelRoom {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
