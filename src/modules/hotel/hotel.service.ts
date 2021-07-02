@@ -4,9 +4,10 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IHotelService } from './interfaces/IHotelService';
 import { ID } from '../../common/types';
-import { CreateHotelDto } from './dto/CreateHotelDto';
+import { HotelDto } from './dto/HotelDto';
 import { ISearchHotelParams } from './interfaces/ISearchHotelParams';
 import { pick } from '../../common/utils/commonUtils';
+import { HotelNotFoundException } from '../../common/exceptions/HotelNotFoundException';
 
 /**
  * Hotel service
@@ -18,7 +19,7 @@ export class HotelService implements IHotelService {
     @InjectModel(Hotel.name) private readonly hotelModel: Model<HotelDocument>,
   ) {}
 
-  create(hotelData: CreateHotelDto): Promise<HotelDocument> {
+  create(hotelData: HotelDto): Promise<HotelDocument> {
     return this.hotelModel.create(hotelData);
   }
 
@@ -37,7 +38,14 @@ export class HotelService implements IHotelService {
       .exec();
   }
 
-  update(id: ID, data: Partial<Hotel>): Promise<Hotel> {
-    return Promise.resolve(undefined);
+  async update(id: ID, data: Partial<Hotel>): Promise<HotelDocument> {
+    const existHotel = await this.hotelModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!existHotel) {
+      console.log('NOT');
+      throw new HotelNotFoundException(id as string);
+    }
+    return existHotel;
   }
 }

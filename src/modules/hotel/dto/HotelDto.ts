@@ -1,8 +1,6 @@
-import {
-  IsNotEmpty, IsString, Max, Min,
-} from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateHotelDto {
+export class HotelDto {
   /**
    * title field
    */
