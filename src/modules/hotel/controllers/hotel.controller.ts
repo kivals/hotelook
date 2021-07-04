@@ -60,7 +60,7 @@ export class HotelController {
   }
 
   @Post()
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   async createHotel(@Body() createHotelDto: HotelDto): Promise<IHotelResponse> {
     const createdUser = await this.hotelService.create(createHotelDto);
     return {

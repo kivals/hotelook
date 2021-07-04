@@ -9,6 +9,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { diskStorage } from 'multer';
 import { imgFileName, imgFilter } from '../../common/utils/imgUpdate.utils';
+import { HotelRoom, HotelRoomSchema } from './entity/hotel-room.entity';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { imgFileName, imgFilter } from '../../common/utils/imgUpdate.utils';
       {
         name: Hotel.name,
         schema: HotelSchema,
+      },
+      {
+        name: HotelRoom.name,
+        schema: HotelRoomSchema,
       },
     ]),
     MulterModule.registerAsync({

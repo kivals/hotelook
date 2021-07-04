@@ -2,6 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Hotel } from './hotel.entity';
 
+export type HotelRoomDocument = HotelRoom & Document;
+
 @Schema({ timestamps: true })
 export class HotelRoom {
   @Prop({
@@ -9,7 +11,7 @@ export class HotelRoom {
     ref: 'Hotel',
     required: true,
   })
-  hotel: Hotel;
+  hotel: mongoose.Schema.Types.ObjectId;
 
   @Prop({
     type: Boolean,

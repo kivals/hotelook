@@ -23,7 +23,14 @@ export class HotelRoomsController {
     @UploadedFiles() images,
     @Body() createDto: CreateRoomDto,
   ): Promise<HotelRoom> {
-    console.log(images);
-    return this.hotelRoomService.create(createDto);
+    const imagesPath = images.map((image) => image.path);
+    const params = {
+      ...createDto,
+      images: imagesPath,
+      hotel: createDto.hotelId,
+    };
+    console.log(imagesPath);
+    // @ts-ignore
+    return this.hotelRoomService.create(params);
   }
 }

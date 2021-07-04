@@ -1,8 +1,11 @@
 import { IHotelRoomService } from './interfaces/IHotelRoomService';
-import { Injectable } from '@nestjs/common';
-import { HotelRoom } from './entity/hotel-room.entity';
+import { Inject, Injectable } from '@nestjs/common';
+import { HotelRoom, HotelRoomDocument } from './entity/hotel-room.entity';
 import { ID } from '../../common/types';
 import { ISearchRoomsParams } from './interfaces/ISearchRoomsParams';
+import { InjectModel } from '@nestjs/mongoose';
+import { Hotel } from './entity/hotel.entity';
+import { Model } from 'mongoose';
 
 /**
  * HotelRoom service
@@ -10,8 +13,13 @@ import { ISearchRoomsParams } from './interfaces/ISearchRoomsParams';
  */
 @Injectable()
 export class HotelRoomService implements IHotelRoomService {
-  create(data: Partial<HotelRoom>): Promise<HotelRoom> {
-    return Promise.resolve(undefined);
+  constructor(
+    @InjectModel(HotelRoom.name)
+    private readonly hotelRoomModel: Model<HotelRoomDocument>,
+  ) {}
+  async create(data: Partial<HotelRoom>): Promise<HotelRoom> {
+    const createdHotelRoom = await new this.hotelRoomModel(data).save();
+    return createdHotelRoom.populate('hotel').execPopulate();
   }
 
   findById(id: ID, isEnabled?: true): Promise<HotelRoom> {

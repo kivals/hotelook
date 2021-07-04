@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, Matches, MaxLength } from 'class-validator';
 
 export class CreateRoomDto {
-  @Matches(/^[a-zA-Zа-яА-Я ]+$/)
+  @Matches(/^[a-zA-ZА-Яа-я ]+$/)
   @IsNotEmpty()
   title: string;
 
